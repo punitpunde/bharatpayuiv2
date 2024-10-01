@@ -1,0 +1,13 @@
+.user{
+    background-color: #00baf2;
+    color: white;
+    padding: 2px 2px 2px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.user:hover{
+    background-color: #002970;
+}

@@ -1,0 +1,26 @@
+.services-container{
+    background-color: rgb(0, 41, 112);
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.services-container a{
+    /* padding-top: 40px; */
+    color: white;
+    text-decoration: none;
+    transition: transform .2s;
+    font-weight: 400;
+
+}
+
+.services-container a:hover{
+    transform: scale(1.2);
+}
+.services-container a img{
+    font-size: 12px;
+    height: 45px;
+}
+
+.service-container{
+    padding-bottom: 100px;
+}
