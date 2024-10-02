@@ -2,23 +2,23 @@
   margin-top: -60px;
 }
 
-.recharge-form-container{
-    background-color: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 20px;
+.recharge-form-container {
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 20px;
+  padding: 20px; /* Added padding for better spacing */
 }
 
 .input-box {
   position: relative;
-  width: 310px;
-  margin: 30px 0;
+  margin: 15px 0; /* Spacing between input boxes */
 }
 
 .input-box .input-line {
   position: absolute;
   bottom: -2px;
   left: 0;
-  width: 250px;
+  width: 100%; /* Changed to 100% for responsiveness */
   height: 2px;
   background: #00baf2;
   transition: .5s ease;
@@ -35,20 +35,19 @@
   transition: .5s ease;
 }
 
-.input-box input:focus~label,
-.input-box input:valid~label {
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
   top: -4px;
 }
 
-.input-box select:focus~label,
-.input-box select:valid~label {
+.input-box select:focus ~ label,
+.input-box select:valid ~ label {
   top: -4px;
 }
 
-
-.input-check:checked~.input-box label {
+.input-check:checked ~ .input-box label {
   color: #00f7ff;
-  text-shadow: 0 0 10px #0abec4;
+  text-shadow: 0 0 10px #000d36;
 }
 
 .input-box input {
@@ -64,16 +63,36 @@
   transition: .5s ease;
 }
 
-.btn-recharge{
+.btn-recharge {
   background-color: #00baf2;
-  border: 2px solid #0284c7;
   border: none;
   border-radius: 5px;
   font-weight: 600;
+  padding: 10px 20px; /* Added padding for better button appearance */
 }
 
-.btn-recharge:hover{
+.btn-recharge:hover {
   background-color: #0284c7;
   border: 2px solid #00baf2;
 }
 
+.input-box {
+  border: none; /* Remove the border on focus */
+  outline: none; /* Ensure there's no outline as well */
+}
+
+/* Media query for responsive adjustments */
+@media (max-width: 768px) {
+  .recharge-form-container {
+      width: 90%; /* Ensure the container fits well on small screens */
+  }
+
+  .input-box input {
+      height: 45px; /* Slightly reduce input height on smaller screens */
+      font-size: 16px; /* Adjust font size for better readability */
+  }
+
+  .btn-recharge {
+      width: 100%; /* Make button full-width on small screens */
+  }
+}
