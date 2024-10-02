@@ -14,3 +14,18 @@ html{
 .row{
     width: 100%;
 }
+
+::-webkit-scrollbar{
+    width: 5px; 
+    height: 12px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: rgb(255, 255, 255);
+    color: rgb(74, 74, 194);
+}
+::-webkit-scrollbar-thumb{
+    background-color: rgb(133, 101, 110);
+    border-radius: 5px;
+   
+}

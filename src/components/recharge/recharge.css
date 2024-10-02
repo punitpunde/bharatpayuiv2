@@ -9,6 +9,12 @@
   padding: 20px; /* Added padding for better spacing */
 }
 
+.recharge-form-container label{
+  color: #02c2fc;
+  font-weight: 500;
+  box-shadow: none;
+}
+
 .input-box {
   position: relative;
   margin: 15px 0; /* Spacing between input boxes */
@@ -24,6 +30,9 @@
   transition: .5s ease;
 }
 
+/* .plan-container{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+} */
 .input-box label {
   position: absolute;
   top: 50%;
@@ -45,10 +54,6 @@
   top: -4px;
 }
 
-.input-check:checked ~ .input-box label {
-  color: #00f7ff;
-  text-shadow: 0 0 10px #000d36;
-}
 
 .input-box input {
   width: 100%;
@@ -76,10 +81,6 @@
   border: 2px solid #00baf2;
 }
 
-.input-box {
-  border: none; /* Remove the border on focus */
-  outline: none; /* Ensure there's no outline as well */
-}
 
 /* Media query for responsive adjustments */
 @media (max-width: 768px) {
@@ -94,5 +95,113 @@
 
   .btn-recharge {
       width: 100%; /* Make button full-width on small screens */
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.plan-nav {
+  font-size: 14px;
+  color: #999;
+  /* Uncomment if you need a background or shadow */
+  /* background-color: #f8f8f8; */
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
+}
+
+.plan-container {
+  border-radius: 25px;
+  border: none;
+  padding: 20px;
+  background-color: white;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 columns by default */
+  gap: 10px; /* Space between columns */
+  align-items: center; /* Align items vertically */
+}
+
+.plan-desc-container {
+  border: none;
+}
+
+.plan-data {
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 53vh; /* Fixed height for scrolling */
+}
+
+.plan-desc {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Sticky navigation */
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: white; /* Ensure background is white for visibility */
+}
+
+/* Plan list specific styling */
+.plan {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  list-style-type: none;
+  font-size: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: justify;
+}
+
+.plan:hover {
+  transform: translateY(-3px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px; /* Add shadow on hover */
+}
+
+.plan li {
+  padding: 5px 10px;
+}
+
+.badge-info {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  width: 100px;
+  border: 1px solid #a591b0;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.plan-desc-sm{
+  color: black;
+  font-weight: 600;
+}
+.badge-info:hover{
+  background-color: #02c2fc;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .grid-layout {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-layout {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+  }
+
+  .plan-container {
+    padding: 10px; /* Reduce padding for smaller screens */
   }
 }
