@@ -1,0 +1,27 @@
+.loader-container{
+    display: flex;
+    width: 30vw;
+    height: 30vh;
+    align-items: center;
+    justify-content: center;
+    /* background: rgb(224, 245, 253); */
+  }
+.loader-container .dots span{
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    background: #2c2679;
+    border-radius: 50%;
+    transform: rotate(calc(var(--i) * (360deg / 15))) translateY(35px);
+    animation: animate 1.5s linear infinite;
+    animation-delay: calc(var(--i) * 0.1s);
+    opacity: 0;
+  }
+  @keyframes animate {
+   0%{
+     opacity: 1;
+   }
+   100%{
+     opacity: 0;
+   }
+  }
