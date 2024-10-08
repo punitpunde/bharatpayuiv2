@@ -1,8 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import "./navbar.css";
+import { Link, useNavigate } from "react-router-dom";
+import Login from "../../pages/Login";
 function NavBar() {
-  const [over,setOver] = useState(false)
+  const [over, setOver] = useState(false);
+  const nav = useNavigate()
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top  shadow p-3 mb-3 bg-white">
       <button
@@ -38,10 +41,21 @@ function NavBar() {
         </ul>
       </div>
 
-      <div className="image-container-parent text-white user" onMouseOver={()=>setOver(true)} onMouseOut={()=>setOver(false)}>
-        <span >Sign in </span>
-        <img src={over ? "/images/logoutImg.svg":"/images/login.svg"} alt="" />
-      </div>
+      {/* <Link to={<Login></Login>}> */}
+        {" "}
+        <div
+          className="image-container-parent text-white user"
+          onMouseOver={() => setOver(true)}
+          onMouseOut={() => setOver(false)}
+          onClick={()=>nav("/login")}
+        >
+          <span>Sign in </span>
+          <img
+            src={over ? "/images/logoutImg.svg" : "/images/login.svg"}
+            alt=""
+          />
+        </div>
+      {/* </Link> */}
     </nav>
   );
 }

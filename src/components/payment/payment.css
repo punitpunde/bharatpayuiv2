@@ -1,0 +1,108 @@
+/* Container styles */
+.payment-container {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px #3a0c0c;
+}
+
+.payment-container h4 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Payment option styles */
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #3a0c0c;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-option.active {
+  border-color: #6064b6;
+  background-color: #e9ecf4;
+}
+
+.payment-option input {
+  margin-right: 10px;
+}
+
+/* Floating input fields */
+.floating-input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.floating-input-container input {
+  width: 100%;
+  padding: 12px 15px;
+ 
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s;
+  background-color: transparent;
+}
+
+.floating-input-container label {
+  position: absolute;
+  top: 40%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: rgb(13, 110, 253);
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.floating-input-container input:focus ~ label,
+.floating-input-container input:not(:placeholder-shown) ~ label {
+  top: -1px;
+  left: 12px;
+  font-size: 15px;
+  color: #120a52;
+  background-color: #ffffff;
+  padding: 2px;
+  font-weight: 500;
+}
+
+.upi-details input,
+.netbanking-details select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Button styles */
+.btn-proceed {
+  width: 100%;
+  padding: 10px;
+  background-color: #6064b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn-proceed:hover {
+  background-color: #424c83;
+  border: 2px solid blueviolet;
+}

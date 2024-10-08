@@ -2,19 +2,41 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRechargePlans } from "../../features/recharge";
 import Loader from "../extra/Loader";
+import Swal from 'sweetalert2';
+import { addRechargeData } from "../../features/recharge";
 
 function BrowsePlans() {
-  const rechargePlans = useSelector((state) => state.rechargePlans);
+  const { rechargePlans: planData, loading, error} = useSelector((state) => state.rechargePlans);
   const dispatch = useDispatch();
+  // Handle plan click
+  const handlePlanClick = (plan) => {
+    Swal.fire({
+      title: `You selected ${plan.operator} - ${plan.circle}`,
+      text: `Details: ${plan.benefit}\nPrice: ${plan.amount}`,
+      icon: 'info',
+      confirmButtonText: 'OK'
+    }).then((result)=>{
+      if(result.isConfirmed){
+          dispatch(addRechargeData(plan))
+      }
+    })
+  };
 
   useEffect(() => {
     dispatch(fetchRechargePlans());
   }, [dispatch]);
 
-  const { rechargePlans: planData, loading } = rechargePlans;
-
   if (loading) {
     return <Loader />;
+  }
+
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Errroe occured",
+    });
+    return;
   }
 
   return (
@@ -29,6 +51,7 @@ function BrowsePlans() {
             <li>Operator</li>
             <li>Category</li>
             <li>Description</li>
+            <li>Validity</li>
             <li>Price</li>
           </ul>
         </div>
@@ -36,18 +59,20 @@ function BrowsePlans() {
 
         <div className="mx-auto mt-0 plan-desc-container">
           <div className="plan-data">
-            {planData.map((plan, index) => (
-              <ul key={index} className="plan grid-layout mt-3">
+            {planData.map(({ id, circle,validity, operator, category, benefit, amount }) => (
+              <ul key={id} className="plan grid-layout mt-3" onClick={() => handlePlanClick({ circle, operator, category, benefit, amount,validity })}>
                 <li className="plan-desc-sm d-inline d-lg-none text-black">Circle</li>
-                <li>{plan.circle}</li>
+                <li>{circle}</li>
                 <li className="plan-desc-sm d-inline d-lg-none text-black">Operator</li>
-                <li>{plan.operator}</li>
+                <li>{operator}</li>
                 <li className="plan-desc-sm d-inline d-lg-none text-black">Category</li>
-                <li>{plan.category}</li>
+                <li>{category}</li>
                 <li className="plan-desc-sm d-inline d-lg-none text-black">Description</li>
-                <li>{plan.benefit}</li>
+                <li>{benefit}</li>
+                <li className="plan-desc-sm d-inline d-lg-none text-black">Validity</li>
+                <li>{validity}</li>
                 <li className="plan-desc-sm d-inline d-lg-none text-black">Amount</li>
-                <li className="badge-info">{plan.amount}</li>
+                <li className="badge-info">{amount}</li>
               </ul>
             ))}
           </div>

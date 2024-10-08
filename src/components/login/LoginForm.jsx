@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './loginRegistraionForm.css'; // Make sure your CSS file is properly linked
 
-const LoginRegisterForm = () => {
+const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -96,4 +96,4 @@ const LoginRegisterForm = () => {
   );
 };
 
-export default LoginRegisterForm;
+export default LoginForm;
