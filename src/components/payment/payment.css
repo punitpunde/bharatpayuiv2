@@ -50,12 +50,16 @@
 .floating-input-container input {
   width: 100%;
   padding: 12px 15px;
- 
+  border: 1px solid #3a0c0c; /* Border color */
   border-radius: 5px;
   outline: none;
   font-size: 16px;
   transition: 0.3s;
   background-color: transparent;
+}
+
+.floating-input-container input:focus {
+  border-color: #0056b3; /* Focus border color */
 }
 
 .floating-input-container label {
@@ -64,20 +68,20 @@
   left: 15px;
   transform: translateY(-50%);
   font-size: 16px;
-  color: rgb(13, 110, 253);
+  color: #666; /* Initial label color */
   transition: 0.3s;
   font-weight: 500;
 }
 
+/* When input is focused or filled, label moves up */
 .floating-input-container input:focus ~ label,
 .floating-input-container input:not(:placeholder-shown) ~ label {
-  top: -1px;
+  top: -10px;
   left: 12px;
-  font-size: 15px;
-  color: #120a52;
-  background-color: #ffffff;
-  padding: 2px;
-  font-weight: 500;
+  font-size: 14px; /* Adjusted size for the floating effect */
+  color: #007bff; /* Active label color */
+  background-color: #f9f9f9; /* Background to avoid overlap */
+  padding: 0 2px; /* Padding to prevent overlap */
 }
 
 .upi-details input,

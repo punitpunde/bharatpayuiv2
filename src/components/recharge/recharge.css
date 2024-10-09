@@ -236,7 +236,9 @@
   height: auto; /* Maintain aspect ratio */
   margin-right: 10px; /* Space between image and text */
 }
-
+.plan-container{
+  z-index: 0;
+}
 
 /* .operators li{
 margin-left: 10px;

@@ -12,7 +12,7 @@ import { MOBILE_RECHARGE } from "../../constants";
 const Payment = () => {
   const { paymentDetails, loading, paymentSuccess, paymentFailed } =
     useSelector((state) => state.payment);
-  const { rechargeSuccess, rechargeData,error } = useSelector(
+  const { rechargeSuccess, rechargeData, error } = useSelector(
     (state) => state.rechargePlans
   );
 
@@ -26,7 +26,7 @@ const Payment = () => {
     }
   }, [paymentDetails, nav]);
   const { amount } = paymentDetails || {}; // Use optional chaining
-  const [selectedPayment, setSelectedPayment] = useState("");
+  const [selectedPayment, setSelectedPayment] = useState("upi");
   const [upiId, setUpiId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -59,7 +59,7 @@ const Payment = () => {
         icon: "success",
       }).then(() => {
         dispatch(resetState()); // Reset state after showing success alert
-        if (paymentDetails.paymentReason == MOBILE_RECHARGE) {
+        if (paymentDetails.paymentReason === MOBILE_RECHARGE) {
           dispatch(makeRecharge(rechargeData));
         }
         if (rechargeSuccess) {
@@ -69,14 +69,14 @@ const Payment = () => {
             icon: "success",
           });
         }
-        if(error){
+        if (error) {
           Swal.fire({
             title: "Recharge Failure",
-            text: "Plese stay with us we will resove the issue and get it soon!",
+            text: "Please stay with us, we will resolve the issue soon!",
             icon: "error",
           });
         }
-        nav("/")
+        nav("/");
       });
     }
 
@@ -91,34 +91,25 @@ const Payment = () => {
     }
   }, [paymentSuccess, paymentFailed, dispatch, nav]);
 
-  const handlePaymentChange = (e) => {
-    setSelectedPayment(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (selectedPayment === "") {
-      alert("Please select a payment method");
-    } else if (selectedPayment === "upi") {
-      if (upiId.length === 0) {
-        alert("Please enter UPI ID");
-        return;
-      } else if (password.length === 0) {
-        alert("Please enter your password");
-        return;
-      }
-
-      // Dispatch the payment action
-      dispatch(
-        makePayment({
-          ...paymentDetails,
-          senderUpiId: upiId,
-          senderPassword: password,
-        })
-      );
+    if (upiId.length === 0) {
+      alert("Please enter UPI ID");
+      return;
+    } else if (password.length === 0) {
+      alert("Please enter your password");
+      return;
     }
-    // Add similar logic for net banking if needed
+
+    // Dispatch the payment action
+    dispatch(
+      makePayment({
+        ...paymentDetails,
+        senderUpiId: upiId,
+        senderPassword: password,
+      })
+    );
   };
 
   if (loading) {
@@ -126,99 +117,49 @@ const Payment = () => {
   }
 
   return (
-    <div className="payment-container mt-5 text-center">
+    <div className="payment-container mt-5 text-center bg-white">
       <h4 className="p-0 m-0">
-        Select a <span style={{ color: "#6064b6" }}>Payment</span> method
+        Enter your credentials to pay
       </h4>
+      <div className="fs-3  fw-medium"><span className="text-danger">Bharat</span>Pay
       <img
         style={{ height: "120px" }}
         className="pe-4"
         src="/images/upi.png"
         alt="UPI"
-      />
-      <img
-        style={{ height: "60px" }}
-        src="/images/mobile-banking.png"
-        alt="Mobile Banking"
-      />
+      /></div>
       <form onSubmit={handleSubmit}>
-        <div className="payment-options">
-          <label
-            className={`payment-option ${
-              selectedPayment === "upi" ? "active" : ""
-            }`}
-          >
+        <div className="upi-details">
+          <div className="floating-input-container">
             <input
-              type="radio"
-              value="upi"
-              name="payment"
-              onChange={handlePaymentChange}
+              className="border border-primary"
+              type="text"
+              placeholder=" "
+              value={upiId}
+              onChange={(e) => setUpiId(e.target.value)}
+              required
             />
-            <span className="option-name">UPI Payment</span>
-          </label>
-          <label
-            className={`payment-option ${
-              selectedPayment === "netbanking" ? "active" : ""
-            }`}
-          >
+            <label>Enter UPI ID</label>
+          </div>
+          <div className="floating-input-container">
             <input
-              type="radio"
-              value="netbanking"
-              name="payment"
-              onChange={handlePaymentChange}
+              className="border border-primary"
+              type="password"
+              placeholder=" "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
-            <span className="option-name">Net Banking</span>
-          </label>
+            <label>Enter Password</label>
+          </div>
         </div>
-
-        {selectedPayment === "upi" && (
-          <div className="upi-details">
-            <div className="floating-input-container">
-              <input
-                className="border border-primary"
-                type="text"
-                placeholder=" "
-                value={upiId}
-                onChange={(e) => setUpiId(e.target.value)}
-                required
-              />
-              <label>Enter UPI ID</label>
-            </div>
-            <div className="floating-input-container">
-              <input
-                className="border border-primary"
-                type="password"
-                placeholder=" "
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <label>Enter Password</label>
-            </div>
-          </div>
-        )}
-
-        {selectedPayment === "netbanking" && (
-          <div className="netbanking-details">
-            <p className="text-secondary">Select your bank from the dropdown</p>
-            <select>
-              <option value="Bank of Bharat">Bank of Bharat</option>
-              <option value="bank2">Bank 2</option>
-              <option value="bank3">Bank 3</option>
-            </select>
-          </div>
-        )}
 
         <button type="submit" className="btn-proceed mt-4">
           Proceed to Confirm Payment
         </button>
       </form>
 
-      <PaymentInfo
-        paymentMethod={selectedPayment}
-        upiId={upiId}
-        amount={amount}
-      />
+      <PaymentInfo paymentMethod={selectedPayment} upiId={upiId} amount={amount} />
     </div>
   );
 };

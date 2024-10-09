@@ -39,7 +39,7 @@ function RechargeForm() {
       return; // Exit early
     }
     dispatch(addPaymentDetails({amount:rechargeData.amount,operator:rechargeData.operator,paymentReason:MOBILE_RECHARGE}));
-    nav("/payment/payment-options")
+    nav("/payment")
   };
 
 
