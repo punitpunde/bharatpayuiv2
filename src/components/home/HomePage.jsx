@@ -52,7 +52,7 @@ const HomePage = () => {
               </Link>
             </div>
             <div className="col-md-6">
-              <div className="image-container">
+              <div className="image-container mt-5 mt-md-0">
                 <img
                   src="/images/secure-payment.avif"
                   alt="Payment Illustration"
