@@ -3,9 +3,12 @@ import { useState } from "react";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import Login from "../../pages/Login";
+import HoverServices from "./HoverServices";
 function NavBar() {
   const [over, setOver] = useState(false);
+  const [servicesHovered, setServicesHovered] = useState(false);
   const nav = useNavigate()
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top  shadow p-3 mb-3 bg-white">
       <button
@@ -28,10 +31,11 @@ function NavBar() {
               Home
             </a>
           </li>
-          <li className="nav-item ">
+          <li className="nav-item " onMouseOver={()=>setServicesHovered(true)} onMouseOut={()=>setServicesHovered(false)}>
             <a className="nav-link" href="#">
               Services
             </a>
+           {servicesHovered && <HoverServices></HoverServices>}
           </li>
           <li className="nav-item ">
             <a className="nav-link" href="#">

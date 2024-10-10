@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { makeRecharge } from "../../features/recharge";
 import { MOBILE_RECHARGE } from "../../constants";
 
+
 const Payment = () => {
   const { paymentDetails, loading, paymentSuccess, paymentFailed } =
     useSelector((state) => state.payment);
@@ -19,77 +20,43 @@ const Payment = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
+  const [selectedPayment, setSelectedPayment] = useState("upi");
+  const [upiId, setUpiId] = useState("");
+  const [password, setPassword] = useState("");
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State to control popup visibility
+
   // Redirect if paymentDetails is null
   useEffect(() => {
     if (!paymentDetails) {
       nav("/");
     }
   }, [paymentDetails, nav]);
-  const { amount } = paymentDetails || {}; // Use optional chaining
-  const [selectedPayment, setSelectedPayment] = useState("upi");
-  const [upiId, setUpiId] = useState("");
-  const [password, setPassword] = useState("");
-
-  // Prevent back button navigation
-  useEffect(() => {
-    const handleBackButton = (event) => {
-      event.preventDefault(); // Prevent the default back action
-      Swal.fire({
-        title: "Warning!",
-        text: "You cannot go back while processing the payment.",
-        icon: "warning",
-      });
-    };
-
-    // Push a new state to history
-    window.history.pushState(null, "", window.location.href);
-    window.addEventListener("popstate", handleBackButton);
-
-    return () => {
-      window.removeEventListener("popstate", handleBackButton); // Clean up the event listener on unmount
-    };
-  }, []);
 
   // Handle success and failure alerts
   useEffect(() => {
     if (paymentSuccess) {
+      const transactionId = paymentDetails.transactionId; // Ensure you have transaction ID
+      const transactionDate = new Date().toLocaleString(); // Format date and time
+
       Swal.fire({
         title: "Payment Done!",
-        text: "Thank you for using Bharat Pay.",
+        text: `Transaction ID: ${transactionId}\nDate: ${transactionDate}\nThank you for using Bharat Pay.`,
         icon: "success",
       }).then(() => {
+        setShowSuccessPopup(true); // Show the payment success popup
         dispatch(resetState()); // Reset state after showing success alert
         if (paymentDetails.paymentReason === MOBILE_RECHARGE) {
           dispatch(makeRecharge(rechargeData));
         }
-        if (rechargeSuccess) {
-          Swal.fire({
-            title: "Recharge Done",
-            text: "Thank you for using Bharat Pay.",
-            icon: "success",
-          });
-        }
-        if (error) {
-          Swal.fire({
-            title: "Recharge Failure",
-            text: "Please stay with us, we will resolve the issue soon!",
-            icon: "error",
-          });
-        }
-        nav("/");
+        nav("/"); // Navigate away if necessary
       });
     }
 
     if (paymentFailed) {
-      Swal.fire({
-        title: "Payment Failed!",
-        text: "We are sorry! Please try again.",
-        icon: "error",
-      }).then(() => {
-        dispatch(resetState()); // Reset state after showing error alert
-      });
+      alert("Payment Failed! We are sorry! Please try again."); // Handle payment failure
+      dispatch(resetState()); // Reset state after showing error alert
     }
-  }, [paymentSuccess, paymentFailed, dispatch, nav]);
+  }, [paymentSuccess, paymentFailed, dispatch, nav, paymentDetails]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,22 +79,26 @@ const Payment = () => {
     );
   };
 
+  const handleClosePopup = () => {
+    setShowSuccessPopup(false); // Close the popup
+  };
+
   if (loading) {
     return <Loader />;
   }
 
   return (
     <div className="payment-container mt-5 text-center bg-white">
-      <h4 className="p-0 m-0">
-        Enter your credentials to pay
-      </h4>
-      <div className="fs-3  fw-medium"><span className="text-danger">Bharat</span>Pay
-      <img
-        style={{ height: "120px" }}
-        className="pe-4"
-        src="/images/upi.png"
-        alt="UPI"
-      /></div>
+      <h4 className="p-0 m-0">Enter your credentials to pay</h4>
+      <div className="fs-3 fw-medium">
+        <span className="text-danger">Bharat</span>Pay
+        <img
+          style={{ height: "120px" }}
+          className="pe-4"
+          src="/images/upi.png"
+          alt="UPI"
+        />
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="upi-details">
           <div className="floating-input-container">
@@ -159,7 +130,18 @@ const Payment = () => {
         </button>
       </form>
 
-      <PaymentInfo paymentMethod={selectedPayment} upiId={upiId} amount={amount} />
+      <PaymentInfo
+        paymentMethod={selectedPayment}
+        upiId={upiId}
+        amount={paymentDetails.amount}
+      />
+
+      {showSuccessPopup && (
+        <PaymentSuccess
+          amount={paymentDetails.amount}
+          onClose={handleClosePopup} // Close the popup when clicked
+        />
+      )}
     </div>
   );
 };

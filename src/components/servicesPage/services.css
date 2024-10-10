@@ -1,0 +1,27 @@
+.services-container {
+    padding: 20px;
+  }
+  
+  .service-card {
+    border: 1px solid #ddd;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .service-card:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-5px);
+  }
+  
+  .service-card .bi {
+    color: #007bff;
+  }
+  
+  .service-card h5 {
+    font-weight: bold;
+  }
+  
+  .service-card p {
+    color: #6c757d;
+  }
+  

@@ -1,0 +1,97 @@
+/* ErrorPage.css */
+
+  
+  .error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .error-content {
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .error-title {
+    font-size: 80px;
+    margin: 0;
+    color: #ff6f61;
+    animation: fadeIn 1s ease;
+  }
+  
+  .error-message {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #333;
+    animation: fadeIn 1.5s ease;
+  }
+  
+  .error-description {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease;
+  }
+  
+  .back-home {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6f61;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-home:hover {
+    background-color: #e05e4d;
+  }
+  
+  .error-illustration {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 1s infinite;
+  }
+  
+  .ball {
+    width: 100px;
+    height: 100px;
+    background-color: #ff6f61;
+    border-radius: 50%;
+    position: relative;
+    animation: drop 1s infinite alternate;
+  }
+  
+  @keyframes drop {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-20px);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-30px);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

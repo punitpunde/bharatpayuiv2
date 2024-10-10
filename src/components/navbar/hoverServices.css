@@ -1,0 +1,52 @@
+
+.hover-services-container {
+    position: relative; 
+    display: inline-block;
+
+  }
+  
+  /* Adjusting position of MoreServices component */
+  .hover-services-container {
+    position: absolute;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    padding: 10px;
+    width: 200px;
+    z-index: 100;
+    color: rgba(0, 0, 0, 1);
+    margin-left: 10px; /* Add a small gap between the button and dropdown */
+    font-size: 14px;
+    font-weight: 400;
+    
+  }
+  
+  .hover-services-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .hover-services-container li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .hover-services-container li:hover {
+    background-color: #e9ecef;
+  }
+  
+
+
+  @media (max-width: 500px) {
+    .hover-services-container{
+      position: absolute;
+      width: 200px; /* Takes the full width on small screens */
+      margin-left: 0;
+      left: -45px;
+      top: 80px;
+      margin-top: 10px; /* Adds some space between the button and dropdown */
+    }
+  }

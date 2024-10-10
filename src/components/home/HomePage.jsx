@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import './Home.css';
-
+import { Link, useNavigate } from 'react-router-dom';
 const HomePage = () => {
   const sectionsRef = useRef([]);
-
+  const  nav = useNavigate()
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries, observer) => {
@@ -47,9 +47,9 @@ const HomePage = () => {
               <p className="sub-heading">
                 Make transactions quickly and securely with our seamless UPI integration.
               </p>
-              <a href="/get-started" className="btn btn-primary cta-btn">
+              <Link to="/get-started" className="btn btn-primary cta-btn">
                 Get Started
-              </a>
+              </Link>
             </div>
             <div className="col-md-6">
               <div className="image-container">
@@ -65,7 +65,7 @@ const HomePage = () => {
       </div>
 
       {/* Features Section */}
-      <div className="features-section py-5" ref={addToRefs}>
+      <div className="features-section py-5 animated-image mt-0" ref={addToRefs}>
         <div className="container text-center">
           <h2 className="section-title">Why Choose Us?</h2>
           <div className="row">
@@ -122,17 +122,10 @@ const HomePage = () => {
       <div className="cta-section py-5 text-center" ref={addToRefs}>
         <div className="container">
           <h2 className="cta-heading">Ready to Experience the Best Payment App?</h2>
-          <a href="/get-started" className="btn btn-lg btn-success">Join Now</a>
-          <a href="/learn-more" className="btn btn-lg btn-outline-primary ml-3">Learn More</a>
+          <a href="/get-started" className="btn btn-lg btn-success me-4">Join Now</a>
+          <a href="/learn-more" className="btn btn-lg btn-outline-primary ml-3 text-white">Learn More</a>
         </div>
       </div>
-
-      {/* Footer Section */}
-      <footer className="footer bg-dark text-light py-4" ref={addToRefs}>
-        <div className="container text-center">
-          <p>&copy; 2024 Your Payment App. All Rights Reserved.</p>
-        </div>
-      </footer>
     </div>
   );
 };

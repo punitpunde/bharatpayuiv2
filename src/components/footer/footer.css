@@ -1,0 +1,112 @@
+/* General Footer Styling */
+.paymentAppFooter {
+    background-color: #00294c;  /* Dark blue, professional look */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    bottom: 0;
+  }
+  
+  /* Footer Content Section */
+  .footerContent {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px 0;
+  }
+  
+  /* Brand Section */
+  .brand h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  /* Footer Links */
+  .footerLinks {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .footerLinks a {
+    color: white;
+    margin: 0 15px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.4s ease;
+  }
+  
+  .footerLinks a:hover {
+    opacity: 1;
+  }
+  
+  /* Payment Icons Section */
+  .footerIcons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .footerIcons a {
+    background-color: white;
+    margin: 0 10px;
+    padding: 12px;
+    border-radius: 50%;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .footerIcons a i {
+    font-size: 1.8rem;
+    color: #00294c; /* Dark blue icon color for contrast */
+  }
+  
+  /* Hover effect for payment icons */
+  .footerIcons a:hover {
+    background-color: #004080;
+    transform: scale(1.1);
+  }
+  
+  .footerIcons a:hover i {
+    color: white;
+  }
+  
+  /* Footer Bottom Section */
+  .footerBottom {
+    background-color: #001d36; /* Slightly darker color */
+    padding: 10px;
+  }
+  
+  .footerBottom p {
+    color: white;
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .footerContent {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .footerLinks {
+      margin-bottom: 15px;
+    }
+  
+    .footerIcons {
+      margin-bottom: 15px;
+    }
+  }
+  

@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+  }
+  
+  .app {
+    padding: 20px;
+  }
+  
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  
+  input {
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  
+  header {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bg-white {
+    background-color: white !important;
+  }
+  
+  .actions i {
+    color: #007bff;
+  }
+  
+  .actions .row div{
+    transition: background-color 0.2s ease-in-out, transform 0.5s ease-in-out; /* Slow transition */
+  }
+  .actions .row div:hover{
+    cursor: pointer;
+    background-color: rgb(206, 206, 206);
+    border-radius: 10px;
+  }
+
+
+  p {
+    font-size: 0.85rem;
+  }
+  
+  footer {
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  button {
+    transition: 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
