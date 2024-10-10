@@ -1,35 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './transactionHistory.css';
 import { FaCheckCircle, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
-
-// Sample transactions with reason and timestamp
-const initialTransactions = [
-    { id: 1, date: '13-10-2024', time: '10:15:26', amount: '₹1,000', reason: 'Bill Payment', status: 'Completed', to: 'John Doe (upi_id@example.com)' },
-    { id: 2, date: '10-10-2024', time: '14:30:45', amount: '₹500', reason: 'Recharge', status: 'Pending', to: 'Jane Smith (upi_id2@example.com)' },
-    { id: 3, date: '09-10-2024', time: '09:00:00', amount: '₹2,500', reason: 'Transfer', status: 'Completed', to: 'Alice (upi_id3@example.com)' },
-    { id: 4, date: '08-10-2024', time: '17:45:12', amount: '₹1,200', reason: 'Refund', status: 'Failed', to: 'Bob (upi_id4@example.com)' },
-    { id: 5, date: '07-10-2024', time: '12:00:00', amount: '₹3,000', reason: 'Purchase', status: 'Completed', to: 'Charlie (upi_id5@example.com)' },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../extra/Loader';
+import { getTransactionHistory } from '../../features/transactionHistory';
 
 function TransactionHistory() {
+    const dispatch = useDispatch();
+    
+    // Fetch transaction history when the component mounts
+    useEffect(() => {
+        dispatch(getTransactionHistory({
+            "mobileNumber":"9171535016",
+            "userName":"Punit Punde"
+        }));
+    }, [dispatch]);
+
+    const { transactionHistory, loading, transactionHistoryRequestFailed: error } = useSelector((state) => state.transactionHistory);
+    
     const [searchTerm, setSearchTerm] = useState('');
 
-    const filteredTransactions = initialTransactions.filter(transaction =>
+    if (loading) {
+        return <Loader />;
+    }
+
+    if (error) {
+        alert(`Error occurred: ${error}`);
+    }
+
+    const filteredTransactions = transactionHistory?.filter(transaction =>
         transaction.date.includes(searchTerm) ||
-        transaction.amount.includes(searchTerm) ||
+        transaction.amount.toString().includes(searchTerm) || // Convert amount to string for searching
         transaction.reason.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
         <div className="transaction-history-container">
             <h2>Transaction History</h2>
-            <input
+            {/* <input
                 type="text"
                 placeholder="Search by date, amount, or reason"
                 className="search-input"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-            />
+            /> */}
             <div className="transaction-table-container">
                 <table className="transaction-table">
                     <thead>
@@ -44,15 +58,15 @@ function TransactionHistory() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredTransactions.length > 0 ? (
+                        {filteredTransactions && filteredTransactions.length > 0 ? (
                             filteredTransactions.map(transaction => (
                                 <tr key={transaction.id}>
                                     <td>{transaction.id}</td>
                                     <td>{transaction.date}</td>
-                                    <td>{transaction.time}</td>
+                                    <td>{transaction.time.toUpperCase()}</td>
                                     <td>{transaction.amount}</td>
                                     <td>{transaction.reason}</td>
-                                    <td>{transaction.to}</td>
+                                    <td>{transaction.receiverUpiId}</td>
                                     <td>
                                         {transaction.status === 'Completed' && <FaCheckCircle className="icon completed" />}
                                         {transaction.status === 'Pending' && <FaHourglassHalf className="icon pending" />}
