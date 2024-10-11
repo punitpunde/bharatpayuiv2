@@ -37,7 +37,7 @@ const PaymentForm = () => {
         <div className="amount-input-section floating-label">
           <input
             type="number"
-            className="amount-input"
+            className="amount-input bg-white"
             placeholder=" "
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -54,6 +54,7 @@ const PaymentForm = () => {
               value="upi"
               checked={paymentOption === "upi"}
               onChange={() => setPaymentOption("upi")}
+             
             />
             <span> UPI ID</span>
           </label>
@@ -73,7 +74,7 @@ const PaymentForm = () => {
           <div className="floating-label upi-input-section">
             <input
               type="text"
-              className="upi-input"
+              className="upi-input bg-white"
               placeholder=" "
               value={upiId}
               onChange={(e) => setUpiId(e.target.value)}
@@ -85,7 +86,7 @@ const PaymentForm = () => {
           <div className="floating-label mobile-input-section">
             <input
               type="tel"
-              className="mobile-input"
+              className="mobile-input bg-white"
               placeholder=" "
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}

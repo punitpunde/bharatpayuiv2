@@ -33,7 +33,7 @@ function Landing() {
               <i className="bi bi-bank fs-2 text-primary"></i>
               <p className="mt-2">Bank transfer</p>
             </div>
-            <div className="col-3 pt-3">
+            <div className="col-3 pt-3" onClick={()=>nav("/upi-payment")}>
               <i className="bi bi-upc-scan fs-2 text-primary"></i>
               <p className="mt-2">Pay UPI ID</p>
             </div>
@@ -45,7 +45,7 @@ function Landing() {
               <i className="bi bi-file-earmark-text fs-2 text-primary"></i>
               <p className="mt-2">Pay bills</p>
             </div>
-            <div className="col-3 pt-3">
+            <div className="col-3 pt-3" onClick={()=>nav("/mobile-recharge")}>
               <i className="bi bi-phone fs-2 text-primary"></i>
               <p className="mt-2">Mobile recharge</p>
             </div>

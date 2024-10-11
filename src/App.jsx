@@ -11,12 +11,13 @@ import TransactionHistory from "./components/transactionHistory/TransactionHisto
 import Footer from "./components/footer/Footer";
 import LandingPage from "./pages/LandingPage";
 import ErrorPage from "./components/extra/ErrorPage";
+import MobileRecharge from "./pages/MobileRecharge";
 
 function App() {
   return (
     <div className="wrapper">
-      <Navbar></Navbar>
       <div className="container-fluid mt-5 py-5 px-3 px-md-5">
+        <Navbar></Navbar>
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
@@ -25,6 +26,7 @@ function App() {
             path="/upi-payment"
             element={<UPIPayment></UPIPayment>}
           ></Route>
+          <Route path="/mobile-recharge" element={<MobileRecharge></MobileRecharge>}></Route>
           <Route
             path="/transaction-history"
             element={<TransactionHistory></TransactionHistory>}

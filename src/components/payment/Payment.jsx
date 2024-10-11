@@ -1,63 +1,72 @@
 import React, { useState, useEffect } from "react";
-import "./payment.css"; // Ensure you link to the correct CSS file for styling
-import PaymentInfo from "./PaymentInfo"; // Import the PaymentInfo component
+import "./payment.css";
+import PaymentInfo from "./PaymentInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { makePayment, resetState } from "../../features/payment";
 import Loader from "../extra/Loader";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { makeRecharge } from "../../features/recharge";
 import { MOBILE_RECHARGE } from "../../constants";
-
-
+import PaymentSuccess from "../extra/PaymentSuccess";
+import { makeRecharge,resetRechargeState} from "../../features/recharge";
+import Swal from "sweetalert2";
 const Payment = () => {
-  const { paymentDetails, loading, paymentSuccess, paymentFailed } =
-    useSelector((state) => state.payment);
+  const { paymentDetails, loading, paymentSuccess, paymentFailed } = useSelector(
+    (state) => state.payment
+  );
   const { rechargeSuccess, rechargeData, error } = useSelector(
     (state) => state.rechargePlans
   );
+  
 
-  const nav = useNavigate();
   const dispatch = useDispatch();
+  const nav = useNavigate();
 
   const [selectedPayment, setSelectedPayment] = useState("upi");
   const [upiId, setUpiId] = useState("");
   const [password, setPassword] = useState("");
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State to control popup visibility
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  // Redirect if paymentDetails is null
   useEffect(() => {
     if (!paymentDetails) {
       nav("/");
     }
   }, [paymentDetails, nav]);
 
-  // Handle success and failure alerts
   useEffect(() => {
-    if (paymentSuccess) {
-      const transactionId = paymentDetails.transactionId; // Ensure you have transaction ID
-      const transactionDate = new Date().toLocaleString(); // Format date and time
-
-      Swal.fire({
-        title: "Payment Done!",
-        text: `Transaction ID: ${transactionId}\nDate: ${transactionDate}\nThank you for using Bharat Pay.`,
-        icon: "success",
-      }).then(() => {
-        setShowSuccessPopup(true); // Show the payment success popup
-        dispatch(resetState()); // Reset state after showing success alert
-        if (paymentDetails.paymentReason === MOBILE_RECHARGE) {
-          dispatch(makeRecharge(rechargeData));
-        }
-        nav("/"); // Navigate away if necessary
-      });
+    if (paymentSuccess && paymentDetails && paymentDetails.transactionId) {
+      const transactionId = paymentDetails.transactionId;
+      const transactionDate = new Date().toLocaleString();
+      if (paymentDetails.paymentReason === MOBILE_RECHARGE) {
+         dispatch(makeRecharge(rechargeData));
+         dispatch(resetState());
+      }
+      
     }
 
     if (paymentFailed) {
-      alert("Payment Failed! We are sorry! Please try again."); // Handle payment failure
-      dispatch(resetState()); // Reset state after showing error alert
+      alert("Payment Failed! We are sorry! Please try again.");
+      dispatch(resetState());
     }
-  }, [paymentSuccess, paymentFailed, dispatch, nav, paymentDetails]);
-
+  }, [paymentSuccess, paymentFailed, dispatch, paymentDetails, rechargeData]);
+  useEffect(()=>{
+    if(rechargeSuccess){
+      Swal.fire({
+        title: "Recharge Done!",
+        text: `Thank you for using Bharat Pay.`,
+        icon: "success",
+      })
+      setShowSuccessPopup(true);
+    }
+    if(error){
+      Swal.fire({
+        title: "Recharge failed!",
+        text: `We are sorry for this and trying to figure out the issue.`,
+        icon: "error",
+      })
+    }
+    dispatch(resetRechargeState())
+    
+  },[rechargeSuccess,error]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -69,7 +78,6 @@ const Payment = () => {
       return;
     }
 
-    // Dispatch the payment action
     dispatch(
       makePayment({
         ...paymentDetails,
@@ -77,10 +85,13 @@ const Payment = () => {
         senderPassword: password,
       })
     );
+
+    // Force success popup for testing
+    // setShowSuccessPopup(true);
   };
 
   const handleClosePopup = () => {
-    setShowSuccessPopup(false); // Close the popup
+    setShowSuccessPopup(false);
   };
 
   if (loading) {
@@ -130,16 +141,18 @@ const Payment = () => {
         </button>
       </form>
 
-      <PaymentInfo
-        paymentMethod={selectedPayment}
-        upiId={upiId}
-        amount={paymentDetails.amount}
-      />
+      {paymentDetails && (
+        <PaymentInfo
+          paymentMethod={selectedPayment}
+          upiId={upiId}
+          amount={paymentDetails.amount}
+        />
+      )}
 
-      {showSuccessPopup && (
+      {showSuccessPopup && paymentDetails && (
         <PaymentSuccess
           amount={paymentDetails.amount}
-          onClose={handleClosePopup} // Close the popup when clicked
+          onClose={handleClosePopup}
         />
       )}
     </div>

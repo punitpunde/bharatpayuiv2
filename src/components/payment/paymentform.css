@@ -38,7 +38,7 @@
     border-radius: 5px;
     outline: none;
     transition: border-color 0.3s ease;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
   }
   
   /* Add focus effect on input */
