@@ -3,22 +3,44 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { makeRecharge, resetRechargeStatus } from "../../features/recharge";
 import { useNavigate } from "react-router-dom";
-import { addPaymentDetails, makePayment } from "../../features/payment";
+import { addPaymentDetails, resetState } from "../../features/payment";
 import { MOBILE_RECHARGE } from "../../constants";
+
 function RechargeForm() {
   const dispatch = useDispatch();
-  const { rechargeSuccess, rechargeData } = useSelector(
-    (state) => state.rechargePlans
-  );
-  const {paymentFailed, paymentSuccess } = useSelector((state) => state.payment);
+  const { paymentFailed, paymentSuccess } = useSelector((state) => state.payment);
+  const { rechargeData, rechargeSuccess } = useSelector((state) => state.rechargePlans);
   const nav = useNavigate();
   const [operatorsVisible, setOperatorsVisible] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
   const [operator, setOperator] = useState("");
   const [amount, setAmount] = useState("");
   const [planType, setPlanType] = useState("Prepaid");
-  const [proceedToRecharge, setProceedToRecharge] = useState(false); // State to trigger recharge action
+  const [showPaymentPage, setShowPaymentPage] = useState(false);
   const operatorRef = useRef(null);
+
+  // Handle recharge success and reset states
+  useEffect(() => {
+    if (rechargeSuccess) {
+      Swal.fire("Success", "Recharge completed successfully!", "success");
+      dispatch(resetState());
+      dispatch(resetRechargeStatus());
+    }
+  }, [rechargeSuccess, dispatch]);
+
+  // Handle payment success and trigger recharge
+  useEffect(() => {
+    if (paymentSuccess) {
+      dispatch(makeRecharge({ rechargeData }));
+    }
+  }, [paymentSuccess, paymentFailed, dispatch, rechargeData]);
+
+  // Redirect to payment page if `showPaymentPage` is true
+  useEffect(() => {
+    if (showPaymentPage) {
+      nav("/payment");
+    }
+  }, [showPaymentPage, nav]);
 
   const handleRechargeClick = () => {
     if (mobileNumber.length !== 10) {
@@ -27,7 +49,7 @@ function RechargeForm() {
         title: "Oops...",
         text: "Please enter a valid mobile number!",
       });
-      return; // Exit early
+      return;
     }
 
     if (!rechargeData) {
@@ -36,13 +58,19 @@ function RechargeForm() {
         title: "Oops...",
         text: "Please select a plan!",
       });
-      return; // Exit early
+      return;
     }
-    dispatch(addPaymentDetails({amount:rechargeData.amount,operator:rechargeData.operator,paymentReason:MOBILE_RECHARGE}));
-    nav("/payment")
+
+    dispatch(
+      addPaymentDetails({
+        amount: rechargeData.amount,
+        paymentReason: MOBILE_RECHARGE,
+      })
+    );
+    setShowPaymentPage(true);
   };
 
-
+  // Hide operator dropdown on outside click
   const handleClickOutside = (event) => {
     if (operatorRef.current && !operatorRef.current.contains(event.target)) {
       setOperatorsVisible(false);

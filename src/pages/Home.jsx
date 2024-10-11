@@ -18,7 +18,8 @@ function Home() {
    
     {/* <Landing></Landing> */}
       <HomePage></HomePage>
-  
+      {/* <Services></Services>
+  <Recharge></Recharge> */}
     </>
   );
 }

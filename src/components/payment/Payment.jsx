@@ -5,93 +5,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { makePayment, resetState } from "../../features/payment";
 import Loader from "../extra/Loader";
 import { useNavigate } from "react-router-dom";
-import { MOBILE_RECHARGE } from "../../constants";
 import PaymentSuccess from "../extra/PaymentSuccess";
-import { makeRecharge,resetRechargeState} from "../../features/recharge";
 import Swal from "sweetalert2";
+import { MOBILE_RECHARGE } from "../../constants";
+
 const Payment = () => {
-  const { paymentDetails, loading, paymentSuccess, paymentFailed } = useSelector(
-    (state) => state.payment
-  );
-  const { rechargeSuccess, rechargeData, error } = useSelector(
-    (state) => state.rechargePlans
-  );
-  
-
-  const dispatch = useDispatch();
   const nav = useNavigate();
-
-  const [selectedPayment, setSelectedPayment] = useState("upi");
+  const dispatch = useDispatch();
+  const [processPayment, setProcessPayment] = useState(false);
   const [upiId, setUpiId] = useState("");
   const [password, setPassword] = useState("");
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-
+  const { loading, paymentFailed, paymentSuccess, paymentDetails } =
+    useSelector((state) => state.payment);
   useEffect(() => {
     if (!paymentDetails) {
-      nav("/");
+      alert("You can not visit this page");
+      nav(-1);
     }
-  }, [paymentDetails, nav]);
-
+  });
   useEffect(() => {
-    if (paymentSuccess && paymentDetails && paymentDetails.transactionId) {
-      const transactionId = paymentDetails.transactionId;
-      const transactionDate = new Date().toLocaleString();
-      if (paymentDetails.paymentReason === MOBILE_RECHARGE) {
-         dispatch(makeRecharge(rechargeData));
-         dispatch(resetState());
-      }
+    if (processPayment) {
+      console.log(paymentDetails);
       
+      dispatch(makePayment({ ...paymentDetails, upiId, password }));
+      setProcessPayment(false); // Reset flag to avoid multiple submissions
     }
+  }, [processPayment]);
 
-    if (paymentFailed) {
-      alert("Payment Failed! We are sorry! Please try again.");
-      dispatch(resetState());
-    }
-  }, [paymentSuccess, paymentFailed, dispatch, paymentDetails, rechargeData]);
-  useEffect(()=>{
-    if(rechargeSuccess){
-      Swal.fire({
-        title: "Recharge Done!",
-        text: `Thank you for using Bharat Pay.`,
-        icon: "success",
-      })
-      setShowSuccessPopup(true);
-    }
-    if(error){
-      Swal.fire({
-        title: "Recharge failed!",
-        text: `We are sorry for this and trying to figure out the issue.`,
-        icon: "error",
-      })
-    }
-    dispatch(resetRechargeState())
-    
-  },[rechargeSuccess,error]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (upiId.length === 0) {
-      alert("Please enter UPI ID");
-      return;
-    } else if (password.length === 0) {
-      alert("Please enter your password");
+      alert("Please enter a valid UPI ID");
       return;
     }
-
-    dispatch(
-      makePayment({
-        ...paymentDetails,
-        senderUpiId: upiId,
-        senderPassword: password,
-      })
-    );
-
-    // Force success popup for testing
-    // setShowSuccessPopup(true);
-  };
-
-  const handleClosePopup = () => {
-    setShowSuccessPopup(false);
+    if (password.length === 0) {
+      alert("Please enter a password");
+      return; // Ensure form submission stops if password is missing
+    }
+    setProcessPayment(true);
   };
 
   if (loading) {
@@ -110,6 +62,7 @@ const Payment = () => {
           alt="UPI"
         />
       </div>
+
       <form onSubmit={handleSubmit}>
         <div className="upi-details">
           <div className="floating-input-container">
@@ -123,6 +76,7 @@ const Payment = () => {
             />
             <label>Enter UPI ID</label>
           </div>
+
           <div className="floating-input-container">
             <input
               className="border border-primary"
@@ -143,18 +97,14 @@ const Payment = () => {
 
       {paymentDetails && (
         <PaymentInfo
-          paymentMethod={selectedPayment}
+          paymentMethod={"UPI"}
           upiId={upiId}
           amount={paymentDetails.amount}
         />
       )}
 
-      {showSuccessPopup && paymentDetails && (
-        <PaymentSuccess
-          amount={paymentDetails.amount}
-          onClose={handleClosePopup}
-        />
-      )}
+      {paymentSuccess && <PaymentSuccess amount={paymentDetails.amount} />}
+      {paymentFailed && Swal.fire("Error", "Payment Failed", "error")}
     </div>
   );
 };
