@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import { BASE_URL } from "../constants";
 const initialState = {
   loading: false,
   paymentFailed: "",
@@ -12,7 +12,7 @@ export const makePayment = createAsyncThunk(
   async (paymentDetails, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "http://localhost:7777/money-transfer/transfer",
+        BASE_URL+"/money-transfer/transfer",
         {
           method: "POST",
           headers: {

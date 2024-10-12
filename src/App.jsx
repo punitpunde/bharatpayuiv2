@@ -12,6 +12,9 @@ import Footer from "./components/footer/Footer";
 import LandingPage from "./pages/LandingPage";
 import ErrorPage from "./components/extra/ErrorPage";
 import MobileRecharge from "./pages/MobileRecharge";
+import DTH from "./components/dth/DTH";
+import DTHPage from "./pages/DTHPage";
+import BankTransferForm from "./components/bankTransfer/BankTransferForm";
 
 function App() {
   return (
@@ -30,6 +33,14 @@ function App() {
           <Route
             path="/transaction-history"
             element={<TransactionHistory></TransactionHistory>}
+          ></Route>
+          <Route
+            path="/dth"
+            element={<DTHPage></DTHPage>}
+          ></Route>
+          <Route
+            path="/bank-transfer"
+            element={<BankTransferForm></BankTransferForm>}
           ></Route>
           <Route
             path="/get-started"

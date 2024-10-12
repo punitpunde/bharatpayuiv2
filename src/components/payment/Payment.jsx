@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import PaymentSuccess from "../extra/PaymentSuccess";
 import Swal from "sweetalert2";
 import { MOBILE_RECHARGE } from "../../constants";
+import PaymentFail from "../extra/PaymentFail";
 
 const Payment = () => {
   const nav = useNavigate();
@@ -49,7 +50,13 @@ const Payment = () => {
   if (loading) {
     return <Loader />;
   }
-
+  if(paymentSuccess){
+    return <PaymentSuccess></PaymentSuccess>
+  }
+  console.log(paymentFailed)
+  if(paymentFailed){
+    return <PaymentFail></PaymentFail>
+  }
   return (
     <div className="payment-container mt-5 text-center bg-white">
       <h4 className="p-0 m-0">Enter your credentials to pay</h4>
@@ -103,8 +110,8 @@ const Payment = () => {
         />
       )}
 
-      {paymentSuccess && <PaymentSuccess amount={paymentDetails.amount} />}
-      {paymentFailed && Swal.fire("Error", "Payment Failed", "error")}
+      
+      {paymentFailed && <PaymentFail></PaymentFail>}
     </div>
   );
 };

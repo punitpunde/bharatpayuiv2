@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { BASE_URL } from "../constants";
 
 // Initial state
 const initialState = {
@@ -14,7 +15,7 @@ export const fetchDTHRechargePlans = createAsyncThunk(
   "dthPlans/fetchDTHRechargePlans",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:7777/dth/get-dth-plans");
+      const response = await fetch(BASE_URL+"/dth/get-dth-plans");
       if (!response.ok) {
         throw new Error("Failed to fetch DTH recharge plans");
       }
@@ -30,7 +31,7 @@ export const makeDTHRecharge = createAsyncThunk(
   "dthRecharge/makeDTHRecharge",
   async (rechargeData, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:7777/recharge/make-recharge", {
+      const response = await fetch(BASE_URL+"/recharge/make-recharge", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

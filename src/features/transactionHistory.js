@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { BASE_URL } from "../constants";
 
 const initialState = {
   loading: false,
@@ -13,7 +14,7 @@ export const getTransactionHistory = createAsyncThunk(
   async (transactionHistoryRequestDetails, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `http://localhost:7777/money-transfer/transaction-history`,
+        BASE_URL+"/money-transfer/transaction-history",
         {
           method: "POST",
           headers: {

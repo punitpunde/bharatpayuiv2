@@ -1,6 +1,6 @@
 import React from "react";
 import "./landing.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Landing() {
     const nav = useNavigate()
@@ -29,7 +29,7 @@ function Landing() {
               <p className="mt-2">Pay phone number</p>
             </div>
 
-            <div className="col-3 mb-3 pt-3">
+            <div className="col-3 mb-3 pt-3" onClick={()=>nav("/bank-transfer")}>
               <i className="bi bi-bank fs-2 text-primary"></i>
               <p className="mt-2">Bank transfer</p>
             </div>
@@ -49,7 +49,7 @@ function Landing() {
               <i className="bi bi-phone fs-2 text-primary"></i>
               <p className="mt-2">Mobile recharge</p>
             </div>
-            <div className="col-3 mb-3 pt-3">
+            <div className="col-3 mb-3 pt-3" onClick={()=>nav("/dth")}>
               <i className="bi bi-tv fs-2 text-primary"></i>
               <p className="mt-2">DTH Recharge</p>
             </div>
@@ -61,9 +61,9 @@ function Landing() {
           <h5 className="text-primary">People</h5>
           <p className="text-muted">
             People you’ve recently paid will show up here.{" "}
-            <a href="#" className="text-primary">
+            <Link to={"/transaction-history"} className="text-primary">
               Find Transaction History
-            </a>
+            </Link>
           </p>
         </section>
 

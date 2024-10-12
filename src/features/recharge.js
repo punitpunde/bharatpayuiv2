@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import { BASE_URL } from "../constants";
 const initialState = {
   rechargePlans: [],
   loading: false,
@@ -11,7 +11,7 @@ const initialState = {
 export const fetchRechargePlans = createAsyncThunk(
   "rechargePlans/fetch",
   async (operator) => {
-    const url = `http://localhost:7777/recharge/recharge-plans/AJ/AP`;
+    const url = BASE_URL+"/recharge/recharge-plans/AJ/AP"
     const response = await fetch(url);
     return response.json();
   }
@@ -20,7 +20,7 @@ export const fetchRechargePlans = createAsyncThunk(
 export const makeRecharge = createAsyncThunk(
   "rechargePlans/makeRecharge",
   async (rechargeData) => {
-    const url = "http://localhost:7777/recharge/make-recharge";
+    const url = BASE_URL+"/recharge/make-recharge";
     const response = await fetch(url, {
       method: "POST",
       headers: {

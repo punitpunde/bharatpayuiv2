@@ -9,6 +9,8 @@ import DTH from "../components/dth/DTH";
 import Landing from "../components/landing/Landing";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/Navbar";
+import BankTransferForm from "../components/bankTransfer/BankTransferForm";
+import PaymentSuccess from "../components/extra/PaymentSuccess";
 
 // import Services from '../components/servicesPage/Services'
 
@@ -20,6 +22,8 @@ function Home() {
       <HomePage></HomePage>
       {/* <Services></Services>
   <Recharge></Recharge> */}
+  {/* <BankTransferForm></BankTransferForm> */}
+  {/* <PaymentSuccess></PaymentSuccess> */}
     </>
   );
 }
