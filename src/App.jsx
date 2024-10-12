@@ -15,6 +15,7 @@ import MobileRecharge from "./pages/MobileRecharge";
 import DTH from "./components/dth/DTH";
 import DTHPage from "./pages/DTHPage";
 import BankTransferForm from "./components/bankTransfer/BankTransferForm";
+import Contact from "./components/contacts/Contact";
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
           <Route
             path="/get-started"
             element={<LandingPage></LandingPage>}
+          ></Route>
+          <Route
+            path="/contacts"
+            element={<Contact></Contact>}
           ></Route>
           <Route path="/error" element={<ErrorPage></ErrorPage>}></Route>
         </Routes>

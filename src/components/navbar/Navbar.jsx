@@ -11,18 +11,8 @@ function NavBar() {
   
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top  shadow p-3 mb-3 bg-white">
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo03"
-        aria-controls="navbarTogglerDemo03"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <img src="/images/logo.svg" alt="logo" />
+    
+      <img src="/images/logo.svg" className="logo" alt="logo" />
 
       <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0  fs-5 fw-bold">
@@ -38,9 +28,9 @@ function NavBar() {
            {servicesHovered && <HoverServices></HoverServices>}
           </li>
           <li className="nav-item ">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" to={"/contacts"}>
               Contacts
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

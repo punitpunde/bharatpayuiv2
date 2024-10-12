@@ -11,6 +11,7 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/Navbar";
 import BankTransferForm from "../components/bankTransfer/BankTransferForm";
 import PaymentSuccess from "../components/extra/PaymentSuccess";
+import Contact from "../components/contacts/Contact";
 
 // import Services from '../components/servicesPage/Services'
 
@@ -24,6 +25,7 @@ function Home() {
   <Recharge></Recharge> */}
   {/* <BankTransferForm></BankTransferForm> */}
   {/* <PaymentSuccess></PaymentSuccess> */}
+  {/* <Contact></Contact> */}
     </>
   );
 }
