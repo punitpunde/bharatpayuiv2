@@ -1,95 +1,61 @@
 import React, { useState } from 'react';
-import './loginRegistraionForm.css'; // Make sure your CSS file is properly linked
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Font Awesome icons
+import './loginRegistraionForm.css';
 
 const LoginForm = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here
-    console.log('Logging in with:', email, password);
-  };
-
-  const handleSignupSubmit = (e) => {
-    e.preventDefault();
-    // Handle signup logic here
-    console.log('Signing up with:', email, password, confirmPassword);
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
   };
 
   return (
-    <div className="container-form">
-      <input type="checkbox" id="check" checked={!isLogin} onChange={() => setIsLogin(!isLogin)} />
-      
-      <div className={`login form ${isLogin ? '' : 'hidden'}`}>
-        <header>Login</header>
-        <form onSubmit={handleLoginSubmit}>
-          <label htmlFor="login-email">Email</label>
-          <input
-            type="text"
-            id="login-email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          <label htmlFor="login-password">Password</label>
-          <input
-            type="password"
-            id="login-password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <a href="#">Forgot password?</a>
-          <input type="submit" className="button" value="Login" />
-        </form>
-        <div className="signup">
-          <span>Don't have an account? <label htmlFor="check">Signup</label></span>
+    <div className="signup-container">
+      <div className="signup-card">
+        <h3>Sign Up</h3>
+        
+        {/* Floating Label for Name */}
+        <div className="floating-label">
+          <input type="text" id="name" className="form-control" required placeholder=" " />
+          <label htmlFor="name">Name</label>
         </div>
-      </div>
 
-      <div className={`registration form ${isLogin ? 'hidden' : ''}`}>
-        <header>Signup</header>
-        <form onSubmit={handleSignupSubmit}>
-          <label htmlFor="signup-email">Email</label>
-          <input
-            type="text"
-            id="signup-email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+        {/* Floating Label for Email */}
+        <div className="floating-label">
+          <input type="email" id="email" className="form-control" required placeholder=" " />
+          <label htmlFor="email">Email</label>
+        </div>
+
+        {/* Floating Label for Password with Icon */}
+        <div className="floating-label">
+          <input 
+            type={passwordShown ? "text" : "password"}  // Toggle between text/password
+            id="password" 
+            className="form-control" 
+            required 
+            placeholder=" " 
           />
+          <label htmlFor="password">Password</label>
 
-          <label htmlFor="signup-password">Create a password</label>
-          <input
-            type="password"
-            id="signup-password"
-            placeholder="Create a password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          {/* Password Visibility Icon */}
+          <span 
+            className="password-icon" 
+            onClick={togglePasswordVisibility}
+          >
+            {passwordShown ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
 
-          <label htmlFor="confirm-password">Confirm your password</label>
-          <input
-            type="password"
-            id="confirm-password"
-            placeholder="Confirm your password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+        <button className="btn-primary">Sign Up</button>
 
-          <input type="submit" className="button" value="Signup" />
-        </form>
-        <div className="signup">
-          <span>Already have an account? <label htmlFor="check">Login</label></span>
+        <div className="divider">or</div>
+
+        <button className="btn-google">
+          <span className="google-icon">G</span> Sign up with Google
+        </button>
+
+        <div className="text-center mt-3">
+          Already have an account? <a href="#">Log In</a>
         </div>
       </div>
     </div>

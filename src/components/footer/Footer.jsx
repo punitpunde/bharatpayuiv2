@@ -5,8 +5,8 @@ function Footer() {
   return (
     <footer className="paymentAppFooter">
       <div className="footerContent">
-        <div className="brand">
-          <h3>SecurePay</h3> {/* Placeholder app name, you can change it */}
+        <div className="brand fs-3 fw-bold">
+         <span className="text-danger">Bharat</span>Pay
         </div>
 
         <div className="footerLinks">
@@ -23,7 +23,7 @@ function Footer() {
       </div>
 
       <div className="footerBottom">
-        <p>© 2024 SecurePay. All rights reserved. Developed by <span className="text-primary fw-bold">Punit Punde</span></p>
+        <p>© 2024 <span className="text-danger fw-bold">Bharat</span><span className="fw-bold">Pay</span>. All rights reserved. Developed by <span className="text-primary fw-bold">Punit Punde</span></p>
       </div>
     </footer>
   );

@@ -1,81 +1,177 @@
-/* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+/* loginRegistraionForm.css */
 
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-.container-form{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  max-width: 430px;
+.signup-card {
   width: 100%;
-  background: #fff;
-  border-radius: 7px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-}
-.container-form .registration{
-  display: none;
-}
-#check:checked ~ .registration{
-  display: block;
-}
-#check:checked ~ .login{
-  display: none;
-}
-#check{
-  display: none;
-}
-.container-form .form{
+  max-width: 400px;
+  background: white;
   padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-.form header{
-  font-size: 2rem;
-  font-weight: 500;
+
+.signup-card h3 {
   text-align: center;
   margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
- .form input{
-   height: 60px;
-   width: 100%;
-   padding: 0 15px;
-   font-size: 17px;
-   margin-bottom: 1.3rem;
-   border: 1px solid #ddd;
-   border-radius: 6px;
-   outline: none;
- }
- .form input:focus{
-   box-shadow: 0 1px 0 rgba(0,0,0,0.2);
- }
-.form a{
-  font-size: 16px;
-  color: #009579;
-  text-decoration: none;
+
+.floating-label {
+  position: relative;
+  margin-bottom: 1.5rem;
 }
-.form a:hover{
-  text-decoration: underline;
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
-.form input.button{
-  color: #fff;
-  background: #009579;
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  margin-top: 1.7rem;
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+/* Floating label effect */
+label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #6c757d;
+  background-color: white;
+  padding: 0 5px;
+  pointer-events: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus + label,
+.form-control:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 0.75rem;
+  color: #007bff;
+}
+
+/* Show/Hide Password Button */
+.show-password-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  color: #007bff;
   cursor: pointer;
-  transition: 0.4s;
 }
-.form input.button:hover{
-  background: #006653;
+
+/* Button and Form Styling */
+.btn-primary {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
 }
-.signup{
-  font-size: 17px;
+
+.divider {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.btn-google {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #6c757d;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-center {
   text-align: center;
 }
-.signup label{
-  color: #009579;
-  cursor: pointer;
+
+.mt-3 {
+  margin-top: 1rem;
 }
-.signup label:hover{
-  text-decoration: underline;
+
+
+/* loginRegistraionForm.css */
+
+/* Other existing CSS */
+
+.floating-label {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  padding-right: 2.5rem; /* Make space for the icon */
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #6c757d;
+  background-color: white;
+  padding: 0 5px;
+  pointer-events: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus + label,
+.form-control:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 0.75rem;
+  color: #007bff;
+}
+
+/* Password Icon Styling */
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #007bff;
+  font-size: 1.2rem;
 }
