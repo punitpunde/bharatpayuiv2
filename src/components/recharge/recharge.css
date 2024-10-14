@@ -42,17 +42,14 @@
   color: #02c2fc;
   pointer-events: none;
   transition: .5s ease;
-}
-
-.input-box input:focus ~ label,
-.input-box input:valid ~ label {
   top: -4px;
 }
 
-.input-box select:focus ~ label,
-.input-box select:valid ~ label {
+ /* .input-box input:focus ~ label,
+ .input-box input:valid ~ label {
   top: -4px;
-}
+} */
+
 
 
 .input-box input {

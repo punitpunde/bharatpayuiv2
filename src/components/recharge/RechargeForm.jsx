@@ -8,8 +8,12 @@ import { MOBILE_RECHARGE } from "../../constants";
 
 function RechargeForm() {
   const dispatch = useDispatch();
-  const { paymentFailed, paymentSuccess } = useSelector((state) => state.payment);
-  const { rechargeData, rechargeSuccess } = useSelector((state) => state.rechargePlans);
+  const { paymentFailed, paymentSuccess } = useSelector(
+    (state) => state.payment
+  );
+  const { rechargeData, rechargeSuccess } = useSelector(
+    (state) => state.rechargePlans
+  );
   const nav = useNavigate();
   const [operatorsVisible, setOperatorsVisible] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
@@ -17,8 +21,9 @@ function RechargeForm() {
   const [amount, setAmount] = useState("");
   const [planType, setPlanType] = useState("Prepaid");
   const [showPaymentPage, setShowPaymentPage] = useState(false);
-  const operatorRef = useRef(null);
 
+
+  
   // Handle recharge success and reset states
   useEffect(() => {
     if (rechargeSuccess) {
@@ -70,19 +75,14 @@ function RechargeForm() {
     setShowPaymentPage(true);
   };
 
-  // Hide operator dropdown on outside click
-  const handleClickOutside = (event) => {
-    if (operatorRef.current && !operatorRef.current.contains(event.target)) {
-      setOperatorsVisible(false);
-    }
-  };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   return (
     <div className="recharge-form-container col-10 col-md-4 text-center mx-auto">
@@ -102,7 +102,7 @@ function RechargeForm() {
             Prepaid
           </label>
         </div>
-        <div className="form-check form-check-inline pb-2">
+        <div className="form-check  form-check-inline pb-2">
           <input
             className="form-check-input"
             type="radio"
@@ -130,36 +130,74 @@ function RechargeForm() {
         </div>
         <div
           className="input-box mx-auto mb-3"
-          ref={operatorRef}
-          onClick={() => setOperatorsVisible(true)}
+          // ref={operatorRef}
+          onClick={() => setOperatorsVisible(true)} // Opens the operator list
         >
           <input
             type="text"
-            value={operator}
+            value={operator} // Bind input value to operator state
             onChange={(e) => setOperator(e.target.value)}
             required
-            readOnly
+            readOnly // Keep it read-only to prevent manual edits
           />
           <label className="form-label">Operator</label>
           <div className="input-line"></div>
         </div>
+
         {operatorsVisible && (
           <ul className="operators rounded">
-            {["Jio", "BSNL", "VI", "Airtel", "MTNL"].map((op) => (
-              <li
-                key={op}
-                onClick={() => {
-                  setOperator(op);
-                  setOperatorsVisible(false);
-                }}
-              >
-                <img
-                  src={`/images/${op.toLowerCase()}.webp`}
-                  alt={`${op} logo`}
-                />
-                {op}
-              </li>
-            ))}
+            <li
+             
+              onClick={() => {
+                setOperator("Jio"); 
+                setOperatorsVisible(false);
+              }}
+            >
+              <img
+                src={`/images/jio.webp`}
+                alt={`jio logo`}
+              />
+              Jio
+            </li>
+            <li
+             
+              onClick={() => {
+                setOperator("VI"); 
+                setOperatorsVisible(false);
+              }}
+            >
+              <img
+                src={`/images/vi.avif`}
+                alt={`jio logo`}
+              />
+             VI
+            </li>
+            <li
+             
+             onClick={() => {
+               setOperator("MTNL"); 
+               setOperatorsVisible(false);
+             }}
+           >
+             <img
+               src={`/images/mtnl.webp`}
+               alt={`mtnl logo`}
+             />
+            MTNL
+           </li>
+           <li
+             
+             onClick={() => {
+               setOperator("Airtel"); 
+               setOperatorsVisible(false);
+             }}
+           >
+             <img
+               src={`/images/airtel.avif`}
+               alt={`mtnl logo`}
+             />
+           Airtel
+           </li>
           </ul>
         )}
         {!operatorsVisible && (

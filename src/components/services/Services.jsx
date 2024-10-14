@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./services.css";
 import MoreServices from "./MoreServices";
+import { Link } from "react-router-dom";
 
 function Services() {
   const [hovered, setHovered] = useState(false);
@@ -29,16 +30,16 @@ function Services() {
           <br />
           <span>DTH</span>
         </a>
-        <a href="/" className="d-inline-block pe-5 py-3 ps-md-0 ps-5 text-center">
+        <Link to="/pay-electricity-bill" className="d-inline-block pe-5 py-3 ps-md-0 ps-5 text-center">
           <img src="/images/electricity.avif" className="pb-2" alt="Electricity Bill" />
           <br />
           <span>Electricity Bill</span>
-        </a>
-        <a href="/" className="d-inline-block py-3 pe-5 ps-md-0 ps-5 text-center">
+        </Link>
+        <Link to="/book-gas" className="d-inline-block py-3 pe-5 ps-md-0 ps-5 text-center">
           <img src="/images/gas.png" className="pb-2" alt="Book Gas" />
           <br />
           <span>Book Gas</span>
-        </a>
+        </Link>
 
         {/* More Services with hover */}
         <div

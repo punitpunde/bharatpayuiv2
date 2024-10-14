@@ -16,6 +16,7 @@ import DTH from "./components/dth/DTH";
 import DTHPage from "./pages/DTHPage";
 import BankTransferForm from "./components/bankTransfer/BankTransferForm";
 import Contact from "./components/contacts/Contact";
+import ServiceUnavailable from "./components/extra/ServiceUnavailable";
 
 function App() {
   return (
@@ -46,6 +47,14 @@ function App() {
           <Route
             path="/get-started"
             element={<LandingPage></LandingPage>}
+          ></Route>
+          <Route
+            path="/pay-electricity-bill"
+            element={<ServiceUnavailable></ServiceUnavailable>}
+          ></Route>
+          <Route
+            path="/book-gas"
+            element={<ServiceUnavailable></ServiceUnavailable>}
           ></Route>
           <Route
             path="/contacts"

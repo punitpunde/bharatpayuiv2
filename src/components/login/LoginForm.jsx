@@ -1,28 +1,59 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Font Awesome icons
-import './loginRegistraionForm.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser,resetAuthError } from '../../features/security';
+import './login.css';
 
 const LoginForm = () => {
+  const [name, setName] = useState(''); // Add state for name
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
+
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
   };
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Dispatch loginUser with email and password
+    dispatch(loginUser({ email, password }));
+  };
+
   return (
-    <div className="signup-container">
-      <div className="signup-card">
-        <h3>Sign Up</h3>
+    <div className="login-container">
+      <div className="login-card">
+        <h3>Sign In</h3>
         
         {/* Floating Label for Name */}
-        <div className="floating-label">
-          <input type="text" id="name" className="form-control" required placeholder=" " />
+        {/* <div className="floating-label">
+          <input 
+            type="text" 
+            id="name" 
+            className="form-control" 
+            required 
+            placeholder=" " 
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <label htmlFor="name">Name</label>
-        </div>
+        </div> */}
 
         {/* Floating Label for Email */}
         <div className="floating-label">
-          <input type="email" id="email" className="form-control" required placeholder=" " />
+          <input 
+            type="email" 
+            id="email" 
+            className="form-control" 
+            required 
+            placeholder=" " 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <label htmlFor="email">Email</label>
         </div>
 
@@ -34,6 +65,8 @@ const LoginForm = () => {
             className="form-control" 
             required 
             placeholder=" " 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <label htmlFor="password">Password</label>
 
@@ -46,7 +79,12 @@ const LoginForm = () => {
           </span>
         </div>
 
-        <button className="btn-primary">Sign Up</button>
+        {/* Error Message */}
+        {error && <p className="error-message">{error}</p>}
+
+        <button className="btn-primary" onClick={handleLogin} disabled={loading}>
+          {loading ? 'Logging in...' : 'Log In'}
+        </button>
 
         <div className="divider">or</div>
 

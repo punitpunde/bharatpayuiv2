@@ -1,0 +1,68 @@
+/* Center the content on the page */
+.service-unavailable-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    text-align: center;
+  }
+  
+  /* Animation for the text */
+  .animation-wrapper {
+    margin-bottom: 30px;
+  }
+  
+  .animated-text h1 {
+    font-size: 2.5rem;
+    color: #ed1515;
+    animation: fadeIn 1.5s ease-in-out infinite alternate;
+  }
+  
+  .animated-text p {
+    font-size: 1.25rem;
+    color: #555;
+    animation: fadeIn 2s ease-in-out infinite alternate;
+  }
+  
+  /* Simple circle loader animation */
+  .loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .circle {
+    width: 15px;
+    height: 15px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #3498db;
+    animation: bounce 0.6s infinite alternate;
+  }
+  
+  .circle:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .circle:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  /* Keyframes for bounce effect */
+  @keyframes bounce {
+    to {
+      transform: translateY(-15px);
+    }
+  }
+  
+  /* Keyframes for fade-in effect */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
